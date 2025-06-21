@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // ทดสอบ ssh ไปยัง host (ไม่ต้องสั่งคำสั่งอะไร แค่เชื่อมแล้วออก)
-                    def remoteHost = "user@your.server.com"
+                    def remoteHost = "ssh root@31.97.67.40"
 
                     sh """
                         echo "Testing SSH to ${remoteHost}..."
