@@ -20,6 +20,7 @@ pipeline {
                         echo "Testing SSH to ${remoteHost}..."
                         ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 ${remoteHost} "echo SSH connection successful"
                     """
+                    echo 'Connect Success'
                 }
             }
         }
