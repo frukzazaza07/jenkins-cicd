@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test Ping Connection') {
             steps {
-                sh "./scripts/ping_connection.sh ${env.DEST_IP}"
+                sh "../scripts/ping_connection.sh ${env.DEST_IP}"
             }
         }
         stage('Test SSH Connection') {
