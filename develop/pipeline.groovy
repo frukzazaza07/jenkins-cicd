@@ -27,7 +27,7 @@ pipeline {
                     keyFileVariable: 'SSH_KEY',
                     usernameVariable: 'SSH_USER'
                 )]) {
-                    sh echo "Connecting to ${env.DEST_IP} as ${SSH_USER}"
+                    sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_USER}" """
                     // sh """
                     //     ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$SSH_USER@${env.DEST_IP}" "echo Test SSH Connection Success"
                     // """
