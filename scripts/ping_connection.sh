@@ -11,7 +11,7 @@ fi
 echo "📡 Pinging IP_DESTINATION: $IP_DESTINATION ..."
 
 # 👇 เพิ่ม timeout 5 วินาที หากระบบช้า
-if timeout 5 ping -c 1 -W 2 "$IP_DESTINATION" >/dev/null 2>&1; then
+if timeout 5 ping -c 4 -W 2 "$IP_DESTINATION" >/dev/null 2>&1; then
     echo "✅ Ping to $IP_DESTINATION success"
     exit 0
 else
