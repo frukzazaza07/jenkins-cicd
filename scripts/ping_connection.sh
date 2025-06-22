@@ -10,7 +10,7 @@ fi
 
 echo "📡 Pinging IP_DESTINATION: $IP_DESTINATION ..."
 
-if ping -c 2 -W 1 "$IP_DESTINATION" >/dev/null 2>&1; then
+if ping -c 1 -W 2 "$IP_DESTINATION" >/dev/null 2>&1; then
     echo "✅ Ping to $IP_DESTINATION success"
     exit 0
 else
