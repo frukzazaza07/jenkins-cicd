@@ -29,7 +29,7 @@ pipeline {
                 )]) {
                     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_USER}" ${SSH_KEY} """
                     sh """
-                        ssh -i ${$SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP}" "echo Test SSH Connection Success"
+                        ssh -i ${$SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP}"
                     """
                 }
             }
