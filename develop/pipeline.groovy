@@ -22,17 +22,16 @@ pipeline {
         }
         stage('Test SSH Connection') {
             steps {
-                echo "Connecting to ${env.DEST_IP} "
-                // withCredentials([sshUserPrivateKey(
-                //     credentialsId: 'ssh-deploy-key',
-                //     keyFileVariable: 'SSH_KEY',
-                //     usernameVariable: 'SSH_USER'
-                // )]) {
-                //     echo "Connecting to ${env.DEST_IP} as ${SSH_USER}"
-                //     sh """
-                //         ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$SSH_USER@${env.DEST_IP}" "echo Test SSH Connection Success"
-                //     """
-                // }
+                withCredentials([sshUserPrivateKey(
+                    credentialsId: 'ssh_31.97.67.40',
+                    keyFileVariable: 'SSH_KEY',
+                    usernameVariable: 'SSH_USER'
+                )]) {
+                    echo "Connecting to ${env.DEST_IP} as ${SSH_USER}"
+                    sh """
+                        ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$SSH_USER@${env.DEST_IP}" "echo Test SSH Connection Success"
+                    """
+                }
             }
         }
     }
