@@ -16,6 +16,7 @@ pipeline {
         }
         stage('Test Ping Connection') {
             steps {
+                sh 'chmod +x scripts/ping_connection.sh'
                 sh "./scripts/ping_connection.sh ${env.DEST_IP}"
             }
         }
