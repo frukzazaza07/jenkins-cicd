@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DEST_IP = '31.97.67.40'
-        SSH_CREDENTIAL = credentials('ssh_31.97.67.40')
+        SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
     options {
         // Timeout counter starts AFTER agent is allocated
