@@ -4,10 +4,6 @@ pipeline {
         DEST_IP = '31.97.67.40'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
-    options {
-        // Timeout counter starts AFTER agent is allocated
-        timeout(time: 1, unit: 'SECONDS')
-    }
     stages {
         stage('Example') {
             steps {
