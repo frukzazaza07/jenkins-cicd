@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Test SSH Connection') {
             steps {
-                withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'ssh_31.97.67.40', \
+                withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', \
                                              keyFileVariable: 'SSH_KEY', \
                                              passphraseVariable: 'SSH_PASS', \
                                              usernameVariable: 'SSH_USER')]) {
