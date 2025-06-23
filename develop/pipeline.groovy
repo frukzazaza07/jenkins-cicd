@@ -22,7 +22,7 @@ pipeline {
                                              keyFileVariable: 'SSH_KEY', \
                                              passphraseVariable: 'SSH_PASS', \
                                              usernameVariable: 'SSH_USER')]) {
-                    sh """ echo "Connecting to ${env.DEST_IP} as $SSH_USER $SSH_KEY"  """
+                    sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
                     sh """
                         ssh -i ${SSH_KEY} ${SSH_USER}@${env.DEST_IP} 'hostname'
                     """
