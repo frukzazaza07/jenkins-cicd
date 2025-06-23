@@ -20,3 +20,5 @@ docker run ^
   --publish 8080:8080 --publish 50000:50000 %IMAGE_TAG_NAME%
 
 echo Jenkins Docker-in-Docker started
+
+@REM docker cp C:\Users\User\.ssh ~root/.ssh/authorized_keys
