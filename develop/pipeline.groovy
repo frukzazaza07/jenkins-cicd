@@ -28,7 +28,7 @@ pipeline {
                     sh 'whoami'
                     sh """ chmod 600 $SSH_KEY  """
                     sh """
-                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP} 'hostname'
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP}
                     """
                 }
             }
