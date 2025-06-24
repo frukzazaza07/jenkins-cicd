@@ -25,9 +25,8 @@ pipeline {
             steps {
                 script {
                         echo "testtttttttttttttt"
-                        ssh{
-                            command "hostname",  host: "${env.DEST_IP}", credentialsId: 'SSH_INSUREOK_SERVER'
-                            command "whoami", host: "${env.DEST_IP}", credentialsId: 'SSH_INSUREOK_SERVER'
+                        sshagent(['SSH_INSUREOK_SERVER']) {
+                            sh 'ssh -o StrictHostKeyChecking=no root@31.97.67.40 "hostname"'
                         }
                 }
 
