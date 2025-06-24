@@ -25,7 +25,6 @@ pipeline {
             steps {
                 withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', \
                                              keyFileVariable: 'SSH_KEY', \
-                                             passphraseVariable: 'SSH_PASS', \
                                              usernameVariable: 'SSH_USER')]) {
                     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
                     sh """
