@@ -24,7 +24,7 @@ pipeline {
                                              usernameVariable: 'SSH_USER')]) {
                     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
                     sh """
-                        ssh -i /home/jenkins/.ssh/id_ed25519  -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP} 'hostname'
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP} 'hostname'
                     """
                 }
             }
