@@ -24,6 +24,7 @@ pipeline {
         stage('Test SSH Connection') {
             steps {
                 script {
+                        echo "testtttttttttttttt"
                         ssh{
                             command "hostname",  host: "${env.DEST_IP}", credentialsId: 'SSH_INSUREOK_SERVER'
                             command "whoami", host: "${env.DEST_IP}", credentialsId: 'SSH_INSUREOK_SERVER'
