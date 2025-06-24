@@ -23,6 +23,13 @@ pipeline {
         }
         stage('Test SSH Connection') {
             steps {
+                script {
+                        ssh{
+                            command "hostname",  host: "${env.DEST_IP}", credentialsId: 'SSH_INSUREOK_SERVER'
+                            command "whoami", host: "${env.DEST_IP}", credentialsId: 'SSH_INSUREOK_SERVER'
+                        }
+                }
+
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
                     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
                     sh 'whoami'
