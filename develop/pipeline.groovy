@@ -16,6 +16,11 @@ pipeline {
                 sh "./scripts/ping_connection.sh ${env.DEST_IP}"
             }
         }
+        stage('Check ENV') {
+            steps {
+                sh 'env'
+            }
+        }
         stage('Test SSH Connection') {
             steps {
                 withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', \
