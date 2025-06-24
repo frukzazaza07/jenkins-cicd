@@ -23,9 +23,7 @@ pipeline {
         }
         stage('Test SSH Connection') {
             steps {
-                withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', \
-                                             keyFileVariable: 'SSH_KEY', \
-                                             usernameVariable: 'SSH_USER')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
                     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
                     sh """ chmod 600 $SSH_KEY  """
                     sh """
