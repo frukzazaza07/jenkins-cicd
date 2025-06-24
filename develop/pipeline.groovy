@@ -26,7 +26,7 @@ pipeline {
                 script {
                         echo "SSH Connecting to ${env.DEST_IP}"
                         sshagent(['SSH_INSUREOK_SERVER']) {
-                            sh """ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} "hostname" """
+                            sh """ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} "hostname -I" """
                         }
                 }
 
