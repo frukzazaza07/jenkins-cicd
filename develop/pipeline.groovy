@@ -24,9 +24,9 @@ pipeline {
         stage('Test SSH Connection') {
             steps {
                 script {
-                        echo "testtttttttttttttt"
+                        echo "SSH Connecting to ${env.DEST_IP}"
                         sshagent(['SSH_INSUREOK_SERVER']) {
-                            sh 'ssh -o StrictHostKeyChecking=no root@31.97.67.40 "hostname"'
+                            sh """ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} "hostname" """
                         }
                 }
 
