@@ -27,6 +27,8 @@ pipeline {
                                              keyFileVariable: 'SSH_KEY', \
                                              usernameVariable: 'SSH_USER')]) {
                     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
+                    sh """ echo "WHOAMI: $(whoami)"  """
+                    sh """ chmod 600 $SSH_KEY  """
                     sh """
                         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP} 'hostname'
                     """
