@@ -36,16 +36,16 @@ pipeline {
                 }
             }
         }
-        // stage('Pull code app') {
-        //     steps {
-        //         scripts{
-        //             git(
-        //                 url: 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git',
-        //                 branch: 'master',
-        //                 credentialsId: 'insureok-bitbucket'
-        //             )
-        //         }
-        //     }
-        // }
+        stage('Pull code app') {
+            steps {
+                scripts{
+                    git(
+                        url: 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git',
+                        branch: 'develop',
+                        credentialsId: 'insureok-bitbucket'
+                    )
+                }
+            }
+        }
     }
 }
