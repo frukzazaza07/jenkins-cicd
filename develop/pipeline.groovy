@@ -20,8 +20,15 @@ pipeline {
             steps {
                 script {
                         echo "SSH Connecting to ${env.DEST_IP}"
-                        sshagent(['SSH_INSUREOK_SERVER']) {
+                        def status = sshagent(['SSH_INSUREOK_SERVER']) {
                             sh """ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} "hostname -I" """
+                        }
+
+                        if (status == 0) {
+                            echo "✅ SSH test connection success"
+                        } else {
+                            echo "❌ SSH test connection failed with exit code ${status}"
+                            error("Stop pipeline because SSH failed.")
                         }
                 }
             }
