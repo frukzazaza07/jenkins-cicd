@@ -62,6 +62,7 @@ pipeline {
                             branch: env.GIT_APP_BRANCH,
                             credentialsId: 'insureok-bitbucket'
                         )
+                        sh(script: "ls -la")
                         echo "✅ Pull code from ${env.GIT_APP_URL} success"
                     } catch (Exception e) {
                         echo "❌ Pull code failed: ${e.getMessage()}"
@@ -79,6 +80,7 @@ pipeline {
                         echo "✅ Build code from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
                         echo "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
+                        error "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
                     }
                 }
             }
