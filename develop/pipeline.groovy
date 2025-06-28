@@ -3,6 +3,7 @@ pipeline {
     environment {
         DEST_IP = '31.97.67.40'
         GIT_APP_URL = 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git'
+        GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
     stages {
@@ -43,7 +44,7 @@ pipeline {
                     echo "Started Git pull code from ${env.GIT_APP_URL}"
                     git(
                         url: env.GIT_APP_URL,
-                        branch: 'develop',
+                        branch: env.GIT_APP_BRANCH,
                         credentialsId: 'insureok-bitbucket'
                     )
                 }
