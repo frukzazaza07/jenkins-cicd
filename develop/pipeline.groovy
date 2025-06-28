@@ -28,9 +28,9 @@ pipeline {
                         }
 
                         if (status == 0) {
-                            echo "✅ SSH test connection success"
+                            echo "✅ SSH test connection success IP: ${env.DEST_IP} User: ${env.SSH_CREDENTIAL_USR}"
                         } else {
-                            echo "❌ SSH test connection failed with exit code ${status}"
+                            echo "❌ SSH test connection failed IP: ${env.DEST_IP} User: ${env.SSH_CREDENTIAL_USR} with exit code ${status}"
                             error("Stop pipeline because SSH failed.")
                         }
                 }
