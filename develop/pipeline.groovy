@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         DEST_IP = '31.97.67.40'
+        GIT_APP_URL = 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
     stages {
@@ -39,8 +40,9 @@ pipeline {
         stage('Pull code app') {
             steps {
                 scripts{
+                    echo "Started Git pull code from ${env.GIT_APP_URL}"
                     git(
-                        url: 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git',
+                        url: env.GIT_APP_URL,
                         branch: 'develop',
                         credentialsId: 'insureok-bitbucket'
                     )
