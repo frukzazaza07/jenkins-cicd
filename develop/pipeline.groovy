@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DEST_IP = '31.97.67.40'
-        GIT_APP_URL = 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git'
+        GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
         GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
