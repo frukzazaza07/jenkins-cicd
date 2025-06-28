@@ -24,25 +24,25 @@ pipeline {
                             sh """ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} "hostname -I" """
                         }
 
-                        if (status == 0) {
-                            echo "✅ SSH test connection success"
-                        } else {
-                            echo "❌ SSH test connection failed with exit code ${status}"
-                            error("Stop pipeline because SSH failed.")
-                        }
+                        // if (status == 0) {
+                        //     echo "✅ SSH test connection success"
+                        // } else {
+                        //     echo "❌ SSH test connection failed with exit code ${status}"
+                        //     error("Stop pipeline because SSH failed.")
+                        // }
                 }
             }
         }
-        stage('Pull code app') {
-            steps {
-                scripts{
-                    git(
-                        url: 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git',
-                        branch: 'master',
-                        credentialsId: 'insureok-bitbucket'
-                    )
-                }
-            }
-        }
+        // stage('Pull code app') {
+        //     steps {
+        //         scripts{
+        //             git(
+        //                 url: 'https://wanutpongbb@bitbucket.org/yern/insure-ok.git',
+        //                 branch: 'master',
+        //                 credentialsId: 'insureok-bitbucket'
+        //             )
+        //         }
+        //     }
+        // }
     }
 }
