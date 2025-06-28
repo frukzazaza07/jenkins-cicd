@@ -11,22 +11,24 @@ pipeline {
     stages {
         stage('Test Ping Connection') {
             steps {
-                echo "🚀 Starting add chmod script ${env.PING_SCRIPT_PATH}"
-                def resultChmod = sh("chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
-                if(resultChmod == 0){
-                    echo "✅ chmod script success ${env.PING_SCRIPT_PATH}"
-                } else {
-                    echo "❌ chmod script failed ${env.PING_SCRIPT_PATH}"
-                    error("❌ chmod script failed ${env.PING_SCRIPT_PATH}")
-                }
+                script{
+                    echo "🚀 Starting add chmod script ${env.PING_SCRIPT_PATH}"
+                    def resultChmod = sh("chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
+                    if(resultChmod == 0){
+                        echo "✅ chmod script success ${env.PING_SCRIPT_PATH}"
+                    } else {
+                        echo "❌ chmod script failed ${env.PING_SCRIPT_PATH}"
+                        error("❌ chmod script failed ${env.PING_SCRIPT_PATH}")
+                    }
 
-                echo "🚀 Starting ping ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
-                def resultPing = sh("${env.PING_SCRIPT_PATH} ${env.DEST_IP}", returnStatus: true)
-                if(resultPing == 0){
-                    echo "✅ Ping script success ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
-                } else {
-                    echo "❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
-                    error("❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}")
+                    echo "🚀 Starting ping ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
+                    def resultPing = sh("${env.PING_SCRIPT_PATH} ${env.DEST_IP}", returnStatus: true)
+                    if(resultPing == 0){
+                        echo "✅ Ping script success ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
+                    } else {
+                        echo "❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
+                        error("❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}")
+                    }
                 }
             }
         }
