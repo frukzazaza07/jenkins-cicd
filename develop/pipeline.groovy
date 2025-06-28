@@ -62,6 +62,7 @@ pipeline {
                             branch: env.GIT_APP_BRANCH,
                             credentialsId: 'insureok-bitbucket'
                         )
+                        sh(script: "pwd")
                         sh(script: "ls -la")
                         echo "✅ Pull code from ${env.GIT_APP_URL} success"
                     } catch (Exception e) {
@@ -76,6 +77,7 @@ pipeline {
                 script {
                     try{
                         echo "Starting build code from: ${env.REPO_NAME}"
+                        sh(script: "pwd")
                         docker.build(env.REPO_NAME)
                         echo "✅ Build code from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
