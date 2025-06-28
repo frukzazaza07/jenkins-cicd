@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script{
                     echo "🚀 Starting add chmod script ${env.PING_SCRIPT_PATH}"
-                    def resultChmod = sh("chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
+                    def resultChmod = sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     if(resultChmod == 0){
                         echo "✅ chmod script success ${env.PING_SCRIPT_PATH}"
                     } else {
@@ -22,7 +22,7 @@ pipeline {
                     }
 
                     echo "🚀 Starting ping ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
-                    def resultPing = sh("${env.PING_SCRIPT_PATH} ${env.DEST_IP}", returnStatus: true)
+                    def resultPing = sh(script: "${env.PING_SCRIPT_PATH} ${env.DEST_IP}", returnStatus: true)
                     if(resultPing == 0){
                         echo "✅ Ping script success ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
                     } else {
