@@ -7,6 +7,11 @@ pipeline {
         GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
         GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
+
+        // clear env ไม่ให้ docker ใช้ TLS
+        DOCKER_HOST = ''
+        DOCKER_TLS_VERIFY = ''
+        DOCKER_CERT_PATH = ''
     }
     stages {
         stage('Test Ping Connection') {
