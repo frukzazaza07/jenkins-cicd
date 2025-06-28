@@ -16,11 +16,6 @@ pipeline {
                 sh "./scripts/ping_connection.sh ${env.DEST_IP}"
             }
         }
-        stage('Check ENV') {
-            steps {
-                sh 'env'
-            }
-        }
         stage('Test SSH Connection') {
             steps {
                 script {
@@ -29,15 +24,6 @@ pipeline {
                             sh """ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} "hostname -I" """
                         }
                 }
-
-                // withCredentials([sshUserPrivateKey(credentialsId: 'SSH_INSUREOK_SERVER', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
-                //     sh """ echo "Connecting to ${env.DEST_IP} as ${SSH_KEY}"  """
-                //     sh 'whoami'
-                //     sh """ chmod 600 $SSH_KEY  """
-                //     sh """
-                //         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@${env.DEST_IP}
-                //     """
-                // }
             }
         }
     }
