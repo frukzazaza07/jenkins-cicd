@@ -17,6 +17,10 @@ pipeline {
         stage('Test Ping Connection') {
             steps {
                 script{
+
+                    sh(script: "export env DOCKER_CERT_PATH=")
+                    sh(script: "export env DOCKER_TLS_VERIFY=0")
+
                     echo "🚀 Starting add chmod script ${env.PING_SCRIPT_PATH}"
                     def resultChmod = sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     if(resultChmod == 0){
