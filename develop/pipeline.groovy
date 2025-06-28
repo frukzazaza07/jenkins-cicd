@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                            echo 'Hello World'
+                echo 'Hello World'
             }
         }
         stage('Test Ping Connection') {
@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Pull code app') {
             steps {
-                scripts{
+                script {
                     echo "Started Git pull code from ${env.GIT_APP_URL}"
                     git(
                         url: env.GIT_APP_URL,
