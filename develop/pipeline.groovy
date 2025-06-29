@@ -7,19 +7,11 @@ pipeline {
         GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
         GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
-
-        // clear env ไม่ให้ docker ใช้ TLS
-        DOCKER_HOST = ''
-        DOCKER_TLS_VERIFY = ''
-        DOCKER_CERT_PATH = ''
     }
     stages {
         stage('Test Ping Connection') {
             steps {
                 script{
-
-                    sh(script: "export env DOCKER_CERT_PATH=")
-                    sh(script: "export env DOCKER_TLS_VERIFY=0")
 
                     echo "🚀 Starting add chmod script ${env.PING_SCRIPT_PATH}"
                     def resultChmod = sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
@@ -92,6 +84,20 @@ pipeline {
                     } catch (Exception e) {
                         echo "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
                         error "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
+                    }
+                }
+            }
+        }
+        stage('Push app from docker image to registry') {
+            steps {
+                script {
+                    try{
+                        echo "Starting push app to: ${env.REPO_NAME}"
+                        docker.login("https://31.97.67.40")
+                        echo "✅ Push app to: ${env.REPO_NAME} success"
+                    } catch (Exception e) {
+                        echo "❌ Push app to registry failed"
+                        error "❌ Push app to registry failed"
                     }
                 }
             }
