@@ -93,7 +93,10 @@ pipeline {
                 script {
                     try{
                         echo "Starting push app to: ${env.REPO_NAME}"
-                        docker.login("https://31.97.67.40")
+                        docker.withRegistry('https://31.97.67.40', 'DOCKER-LOGIN-REGISTRY') {
+                            // docker.image(env.REPO_NAME).push('latest')
+                        }
+
                         echo "✅ Push app to: ${env.REPO_NAME} success"
                     } catch (Exception e) {
                         echo "❌ Push app to registry failed"
