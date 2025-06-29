@@ -100,7 +100,7 @@ pipeline {
                         echo "✅ Push app to: ${env.REPO_NAME} success"
                     } catch (Exception e) {
                         echo "❌ Push app to registry failed"
-                        error "❌ Push app to registry failed"
+                        error "❌ Push app to registry failed ${e.getMessage()}"
                     }
                 }
             }
