@@ -1,0 +1,22 @@
+[req]
+default_bits = 4096
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[dn]
+C = TH
+ST = Bangkok
+L = Bangkok
+O = YourOrganization
+OU = YourUnit
+CN = localhost
+emailAddress = email@email.com
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = {sv domain}
+IP.1 = {sv ip}

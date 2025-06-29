@@ -1,0 +1,21 @@
+1. mkdir -p ~/docker-registry/{certs,auth,data} // สร้าง folder สำหรับ run docker private registry
+2. if need to secure connect gen connection key 
+    2.1 create config file for run generate cert # example file = openssl-san.cnf
+    2.2 run openssl req -x509 -newkey rsa:4096 -nodes -days 365 \
+                -keyout certs/domain.key \ # output cert
+                -out certs/domain.crt \ # output cert
+                -config certs/openssl-san.cnf \ # example file = openssl-san.cnf
+                -extensions req_ext
+3. create user password for docker login
+    3.1 docker run --rm --entrypoint htpasswd httpd:2 -Bbn {myuser} {mypassword} > auth/htpasswd  # output user:hashPassword auth/htpasswd
+4. create docker-compose.yml # example file = docker-compose.yml
+5. run docker compose up -d
+
+####
+if using docker desktop add 
+  "insecure-registries": [
+    "{domain private registry or ip if has port :port}"
+  ]
+
+####
+if using docker engine copy domain.crt from private registry to etc/.../...

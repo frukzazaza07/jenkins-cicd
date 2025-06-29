@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  registry:
+    image: registry:3
+    container_name: secure-registry
+    ports:
+      - 5000:5000
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/domain.crt # path to ca key
+      REGISTRY_HTTP_TLS_KEY: ./certs/domain.key # path to ca key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_AUTH_HTPASSWD_PATH: ./auth/htpasswd
+    volumes:
+      - ./data:/var/lib/registry
+      - ./auth:/auth
+      - ./certs:/certs
