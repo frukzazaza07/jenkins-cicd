@@ -79,7 +79,7 @@ pipeline {
                     try{
                         echo "Starting build code from: ${env.REPO_NAME}"
                         sh(script: "pwd")
-                        docker.build(env.REPO_NAME)
+                        // docker.build(env.REPO_NAME)
                         echo "✅ Build code from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
                         echo "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
@@ -94,7 +94,8 @@ pipeline {
                     try{
                         echo "Starting push app to: ${env.REPO_NAME}"
                         docker.withRegistry('http://31.97.67.40:5000', 'DOCKER-LOGIN-REGISTRY') {
-                            docker.image("31.97.67.40:5000/${env.REPO_NAME}").push('latest')
+                            // docker.image(env.REPO_NAME).push('latest')
+                            docker.build("${env.REPO_NAME}:latest").push()
                         }
 
                         echo "✅ Push app to: ${env.REPO_NAME} success"
