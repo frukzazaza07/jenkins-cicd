@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x # ถ้าเกิด error ที่คำสั่งได้คำสั่งหนึ่งจะ return exit code 1
+set -e # ถ้าเกิด error ที่คำสั่งได้คำสั่งหนึ่งจะ return exit code 1
 
 # กำหนดค่าเริ่มต้นของตัวแปร
 envSecretUrl="http://host.docker.internal:8200/v1/cubbyhole"
