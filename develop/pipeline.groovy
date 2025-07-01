@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         DEST_IP = '31.97.67.40'
-        PING_SCRIPT_PATH = './scripts/ping_connection.sh'
-        ENV_SCRIPT_PATH = './scripts/get_env.sh'
+        PING_SCRIPT_PATH = 'scripts/ping_connection.sh'
+        ENV_SCRIPT_PATH = 'scripts/get_env.sh'
         REPO_NAME = 'insureok'
         GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
         GIT_APP_BRANCH = 'develop'
@@ -83,7 +83,6 @@ pipeline {
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                            sh 'ls -la'
                             def resultGetEnv = sh(
                                 script: """
                                     /var/jenkins_home/workspace/insureok/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
