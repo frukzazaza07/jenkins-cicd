@@ -90,7 +90,13 @@ fi
 #     # แปลงเฉพาะ .data field เป็น .env format พร้อมจัดการ nested data
 #     echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
 # fi
-echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
+echo "$json_data" | jq -r '.data |
+        paths(scalars) as $p |
+        "\(($p | map(tostring) | join("_") | ascii_upcase))" +
+        "=" +
+        # ดึงค่าและแปลงเป็น string
+        "\(.[$p]|tostring)"
+    ' > .env
 cat .env
 
 # ลบไฟล์ชั่วคราวเพื่อทำความสะอาด
