@@ -78,12 +78,9 @@ if ! echo "$responseBody" | jq -e . > /dev/null 2>&1; then
     exit 1
 fi
 
-echo "$responseBody" | jq .data
-# echo "$responseBody" | jq '.data -r | to_entries[] | "\(.key)=\(.value)"' > .env
 echo "$responseBody" | jq -r '.data | to_entries | .[] | .key + "=" + (.value | @sh)' > .env
-
-
-cat .env
 
 # ลบไฟล์ชั่วคราวเพื่อทำความสะอาด
 rm tmp_response.json
+
+
