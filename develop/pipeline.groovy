@@ -1,3 +1,5 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
 pipeline {
     agent any
     environment {
@@ -92,9 +94,11 @@ pipeline {
                             )
                             echo "✅ Get ENV success."
                             echo "🚀 Process parse json"
+                            
                             def jsonSlurper = new groovy.json.JsonSlurper()
+                            def jsonOutput = new groovy.json.JsonOutput()
                             def envData = jsonSlurper.parseText(resultGetEnv)
-                            def jsonStringForEnv = JsonOutput.toJson(envData.data)
+                            def jsonStringForEnv = jsonOutput.toJson(envData.data)
                             sh(script: "${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' ")
                         }
 
