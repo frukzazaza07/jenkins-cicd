@@ -4,8 +4,7 @@ set -x # ถ้าเกิด error ที่คำสั่งได้คำ�
 
 envSecretUrl="http://localhost:8200/v1/cubbyhole"
 envSecretPath=""
-envSecretHeaderAuth=""
-envSecretMethod="GET"
+envSecretAuth=""
 
 # Parse options
 while [[ $# -gt 0 ]]; do
@@ -17,7 +16,7 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     --token)
-      envSecretHeaderAuth="$2"
+      envSecretAuth="$2"
       shift 2
       ;;
     --path)
@@ -37,12 +36,12 @@ if [[ -z "$envSecretPath" ]]; then
   exit 1
 fi
 
-if [[ -z "$envSecretHeaderAuth" ]]; then
+if [[ -z "$envSecretAuth" ]]; then
   echo "❌ --token is required"
   exit 1
 fi
 
-httpResponseCode=$(curl -s -w "%{http_code}" -H $envSecretHeaderAuth $envSecretMethod "$envSecretUrl/$envSecretPath" -o tmp_response.json )
+httpResponseCode=$(curl -s -w "%{http_code}" -H "X-Vault-Token: $envSecretAuth" "$envSecretUrl/$envSecretPath" -o tmp_response.json )
 responseBody=$(cat tmp_response.json)
 
 if [[ "$httpResponseCode" == "200" ]]; then
