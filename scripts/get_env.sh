@@ -78,7 +78,7 @@ if ! echo "$responseBody" | jq -e . > /dev/null 2>&1; then
     exit 1
 fi
 
-echo '{"user": {"name": "Bob", "email": "bob@example.com"}}' | jq .data
+echo "$responseBody" | jq .data
 
 echo 'GG'
 cat .env
