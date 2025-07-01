@@ -92,9 +92,9 @@ pipeline {
                             echo "🚀 Process parse json"
                             def jsonSlurper = new groovy.json.JsonSlurper()
                             def envData = jsonSlurper.parseText(resultGetEnv)
-                             echo "✅ Process parse json success"
-                            writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
-                            cat(file: '.env')
+                            echo "✅ Process parse json success"
+                            // writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
+                            // cat(file: '.env')
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
