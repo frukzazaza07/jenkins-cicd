@@ -15,7 +15,7 @@ fi
 # สมมติว่านี่คือ JSON ที่คุณได้รับจาก API หรือไฟล์
 json_data="$1"
 
-echo "--- Exporting to .env format ---"
+# echo "--- Exporting to .env format ---"
 
 # วิธีที่ 1: วนลูปผ่าน key-value pairs โดยตรง
 # .[] | @json จะแปลงแต่ละ element เป็น JSON string
