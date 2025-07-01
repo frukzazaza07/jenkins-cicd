@@ -12,18 +12,18 @@ pipeline {
         ENV_SECRET_PATH='insureok-dev'
     }
     stages {
+        stage('Inti Scripts permission') {
+            steps {
+                script{
+                    echo "🚀 Starting add chmod script"
+                    def resultChmod = sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
+                    def resultChmod = sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
+                }
+            }
+        }
         stage('Test Ping Connection') {
             steps {
                 script{
-
-                    echo "🚀 Starting add chmod script ${env.PING_SCRIPT_PATH}"
-                    def resultChmod = sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
-                    if(resultChmod == 0){
-                        echo "✅ chmod script success ${env.PING_SCRIPT_PATH}"
-                    } else {
-                        echo "❌ chmod script failed ${env.PING_SCRIPT_PATH}"
-                        error("❌ chmod script failed ${env.PING_SCRIPT_PATH}")
-                    }
 
                     echo "🚀 Starting ping ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
                     def resultPing = sh(script: "${env.PING_SCRIPT_PATH} ${env.DEST_IP}", returnStatus: true)
@@ -86,18 +86,17 @@ pipeline {
                             
                             def resultPing = sh(script: "${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token ${SECRET_TOKEN}", returnStatus: true)
                             if(resultPing == 0){
-                                echo "✅ Ping script success ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
+                                echo "✅ Before Build script success."
                             } else {
-                                echo "❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
-                                error("❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}")
+                                echo "❌ Before Build script failed."
+                                error("❌ Before Build script failed.")
                             }
 
                         }
 
-                        echo "✅ Build get ENV from: ${env.REPO_NAME} success"
+                        echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
-                        echo "❌ Build get ENV from: ${env.REPO_NAME} failed ${e.getMessage()}"
-                        error "❌ Build get ENV from: ${env.REPO_NAME} failed ${e.getMessage()}"
+                        error "❌ ${e.getMessage()}"
                     }
                 }
             }
