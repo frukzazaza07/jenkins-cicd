@@ -95,7 +95,7 @@ pipeline {
                             echo "🚀 Process parse json"
                             
                             def jsonSlurper = new groovy.json.JsonSlurper()
-                            def envData = JsonSlurper.parseText(resultGetEnv)
+                            def envData = jsonSlurper.parseText(resultGetEnv)
                             def jsonStringForEnv = JsonOutput.toJson(envData.data)
                             sh(script: "${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' ")
                         }
