@@ -90,6 +90,7 @@ pipeline {
                                     script: """
                                         ${env.WORKSPACE}/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                     """,
+                                    returnStatus: true
                                 )
                                     echo "✅ Get ENV success."
                                     echo "$resultGetEnv"
