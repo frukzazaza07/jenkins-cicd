@@ -42,11 +42,14 @@ if [[ -z "$envSecretHeaderAuth" ]]; then
   exit 1
 fi
 
+httpResponseCode="$response" # จะได้ HTTP code จาก -w "%{http_code}"
+responseBody=$(cat tmp_response.json)
+
 responseVault=$(curl -s -H $envSecretHeaderAuth $envSecretMethod "$envSecretUrl/$envSecretPath" -o tmp_response.json )
 httpResponseCode=$(tail -c 3 <<< "$responseVault")
 responseBody=$(cat tmp_response.json)
 
-if [[ "$http_code" == "200" ]]; then
+if [[ "$httpResponseCode" == "200" ]]; then
   echo "✅ Success!"
   echo "$responseBody"
 else
