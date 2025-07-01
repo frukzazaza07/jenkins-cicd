@@ -118,6 +118,7 @@ pipeline {
                     try{
                         echo "Starting push app to: ${env.REPO_NAME}"
                         dir('application') { 
+                            sh(script: "ls -la")
                             docker.withRegistry('https://31.97.67.40:5000', 'DOCKER-LOGIN-REGISTRY') {
                                 // docker.image(env.REPO_NAME).push('latest')
                                 docker.build("${env.REPO_NAME}:latest").push()
