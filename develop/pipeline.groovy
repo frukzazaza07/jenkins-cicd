@@ -61,7 +61,7 @@ pipeline {
                 script {
                     try{
                         echo "🚀 Starting Git pull code from ${env.GIT_APP_URL}"
-                        sh 'mkdir app && cd app'
+                        sh 'mkdir app && cd app && pwd'
                         git(
                             url: env.GIT_APP_URL,
                             branch: env.GIT_APP_BRANCH,
