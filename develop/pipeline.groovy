@@ -85,22 +85,25 @@ pipeline {
                     try{
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         dir('application'){
+                            def resultGetEnv
                             withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                                def resultGetEnv = sh(
+                                resultGetEnv = sh(
                                     script: """
                                         ${env.WORKSPACE}/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                     """,
                                     returnStdout: true
                                 )
                                     echo "✅ Get ENV success."
-                                    echo "🚀 Process parse json"
-                                    def jsonSlurper = new groovy.json.JsonSlurper()
-                                    def envData = jsonSlurper.parseText(resultGetEnv)
-                                    def jsonStringForEnv = JsonOutput.toJson(envData.data)
-                                    def resultCreateEnv = sh(script: """${env.WORKSPACE}/${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' """, returnStatus: true)
-                                    if(resultCreateEnv == 0){
-                                        echo "GGG"
-                                    }
+                                    
+                                    
+                            }
+                            echo "🚀 Process parse json"
+                            def jsonSlurper = new groovy.json.JsonSlurper()
+                            def envData = jsonSlurper.parseText(resultGetEnv)
+                            def jsonStringForEnv = JsonOutput.toJson(envData.data)
+                            def resultCreateEnv = sh(script: """${env.WORKSPACE}/${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' """, returnStatus: true)
+                            if(resultCreateEnv == 0){
+                                echo "GGG"
                             }
                         }
 
