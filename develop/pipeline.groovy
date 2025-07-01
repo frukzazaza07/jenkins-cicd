@@ -97,14 +97,14 @@ pipeline {
                                     
                                     
                             }
-                            echo "🚀 Process parse json"
-                            def jsonSlurper = new groovy.json.JsonSlurper()
-                            def envData = jsonSlurper.parseText(resultGetEnv)
-                            def jsonStringForEnv = JsonOutput.toJson(envData.data)
-                            def resultCreateEnv = sh(script: """${env.WORKSPACE}/${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' """, returnStatus: true)
-                            if(resultCreateEnv == 0){
-                                echo "GGG"
-                            }
+                            // echo "🚀 Process parse json"
+                            // def jsonSlurper = new groovy.json.JsonSlurper()
+                            // def envData = jsonSlurper.parseText(resultGetEnv)
+                            // def jsonStringForEnv = JsonOutput.toJson(envData.data)
+                            // def resultCreateEnv = sh(script: """${env.WORKSPACE}/${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' """, returnStatus: true)
+                            // if(resultCreateEnv == 0){
+                            //     echo "GGG"
+                            // }
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
