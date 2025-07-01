@@ -94,7 +94,7 @@ pipeline {
                             def jsonSlurper = new groovy.json.JsonSlurper()
                             envData = jsonSlurper.parseText(resultGetEnv)
                         }
-                        echo "$envData.data"
+                        echo "$envData"
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
