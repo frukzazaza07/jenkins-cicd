@@ -99,8 +99,6 @@ pipeline {
 
                             echo "✅ Process parse json success"
                             echo "$envData.data"
-                            def envFile = new File(".env")
-                            envFile.write("text to be added to the new file")
                             writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
                             sh(script: "cat .env")
                         }
