@@ -18,8 +18,6 @@ pipeline {
                     echo "🚀 Starting add chmod script"
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
-                    sh(script: "pwd", returnStatus: true)
-                    sh(script: "ls -la", returnStatus: true)
                 }
             }
         }
@@ -63,6 +61,7 @@ pipeline {
                 script {
                     try{
                         echo "🚀 Starting Git pull code from ${env.GIT_APP_URL}"
+                        sh 'mkdir app && cd app'
                         git(
                             url: env.GIT_APP_URL,
                             branch: env.GIT_APP_BRANCH,
