@@ -42,8 +42,7 @@ if [[ -z "$envSecretHeaderAuth" ]]; then
   exit 1
 fi
 
-responseVault=$(curl -s -H $envSecretHeaderAuth $envSecretMethod "$envSecretUrl/$envSecretPath" -o tmp_response.json )
-httpResponseCode=$(tail -c 3 <<< "$responseVault")
+httpResponseCode=$(curl -s -w "%{http_code}" -H $envSecretHeaderAuth $envSecretMethod "$envSecretUrl/$envSecretPath" -o tmp_response.json )
 responseBody=$(cat tmp_response.json)
 
 if [[ "$httpResponseCode" == "200" ]]; then
