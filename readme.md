@@ -1,0 +1,1 @@
+# ls /var/jenkins_home/plugins check plugins

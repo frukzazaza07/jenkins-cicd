@@ -3,10 +3,13 @@ pipeline {
     environment {
         DEST_IP = '31.97.67.40'
         PING_SCRIPT_PATH = './scripts/ping_connection.sh'
+        ENV_SCRIPT_PATH = './scripts/get_env.sh'
         REPO_NAME = 'insureok'
         GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
         GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
+        ENV_SECRET_URL='http://localhost:8200/v1/cubbyhole'
+        ENV_SECRET_PATH='insureok-dev'
     }
     stages {
         stage('Test Ping Connection') {
@@ -73,28 +76,39 @@ pipeline {
                 }
             }
         }
-        stage('Build code app') {
+        stage('Before Build get ENV') {
             steps {
                 script {
                     try{
-                        echo "Starting build code from: ${env.REPO_NAME}"
-                        sh(script: "pwd")
-                        // docker.build(env.REPO_NAME)
-                        echo "✅ Build code from: ${env.REPO_NAME} success"
+                        echo "Starting get ENV from: ${env.REPO_NAME}"
+                        
+                        withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
+                            
+                            def resultPing = sh(script: "${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token ${SECRET_TOKEN}", returnStatus: true)
+                            if(resultPing == 0){
+                                echo "✅ Ping script success ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
+                            } else {
+                                echo "❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
+                                error("❌ Ping script failed ${env.PING_SCRIPT_PATH} ${env.DEST_IP}")
+                            }
+
+                        }
+
+                        echo "✅ Build get ENV from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
-                        echo "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
-                        error "❌ Build code from: ${env.REPO_NAME} failed ${e.getMessage()}"
+                        echo "❌ Build get ENV from: ${env.REPO_NAME} failed ${e.getMessage()}"
+                        error "❌ Build get ENV from: ${env.REPO_NAME} failed ${e.getMessage()}"
                     }
                 }
             }
         }
-        stage('Push app from docker image to registry') {
+        stage('Build and Push app from docker image to registry') {
             steps {
                 script {
                     try{
                         echo "Starting push app to: ${env.REPO_NAME}"
                         docker.withRegistry('https://31.97.67.40:5000', 'DOCKER-LOGIN-REGISTRY') {
-                            // docker.image(env.REPO_NAME).push('latest')
+                            docker.image(env.REPO_NAME).push('latest')
                             docker.build("${env.REPO_NAME}:latest").push()
                         }
 
