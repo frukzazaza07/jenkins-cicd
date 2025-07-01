@@ -40,7 +40,8 @@ if [[ -z "$envSecretAuth" ]]; then
   echo "❌ --token is required"
   exit 1
 fi
-
+echo $envSecretAuth
+echo $envSecretUrl/$envSecretPath
 httpResponseCode=$(curl -s -w "%{http_code}" -H "X-Vault-Token: $envSecretAuth" "$envSecretUrl/$envSecretPath" -o tmp_response.json )
 responseBody=$(cat tmp_response.json)
 
