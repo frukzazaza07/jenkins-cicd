@@ -92,7 +92,10 @@ pipeline {
                             )
                             echo "✅ Get ENV success."
                             echo "🚀 Process parse json"
-                            sh(script: "${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$resultGetEnv' ")
+                            def jsonSlurper = new groovy.json.JsonSlurper()
+                            def envData = jsonSlurper.parseText(resultGetEnv)
+                            def jsonStringForEnv = JsonOutput.toJson(envData.data)
+                            sh(script: "${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' ")
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
