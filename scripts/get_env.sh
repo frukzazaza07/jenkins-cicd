@@ -80,10 +80,9 @@ fi
 
 echo "$responseBody" | jq .data
 # echo "$responseBody" | jq '.data -r | to_entries[] | "\(.key)=\(.value)"' > .env
-echo "$responseBody" | jq -r '.data | to_entries | .[] | .key + "=" + (.value | @sh)'
+echo "$responseBody" | jq -r '.data | to_entries | .[] | .key + "=" + (.value | @sh)' > .env
 
 
-echo 'GG'
 cat .env
 
 # ลบไฟล์ชั่วคราวเพื่อทำความสะอาด
