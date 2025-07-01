@@ -85,7 +85,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
                             def resultGetEnv = sh(
                                 script: '''
-                                    %ENV_SCRIPT_PATH% --url %ENV_SECRET_URL% --path %ENV_SECRET_PATH% --token %SECRET_TOKEN%
+                                    $ENV_SCRIPT_PATH --url $ENV_SECRET_URL --path $ENV_SECRET_PATH --token $SECRET_TOKEN
                                 ''',
                                 returnStatus: true
                             )
