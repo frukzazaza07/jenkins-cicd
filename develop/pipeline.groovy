@@ -101,8 +101,8 @@ pipeline {
                             echo "$envData.data.APP_NAME"
                             def helper = load 'helpers/helper.groovy'
                             def envContent = helper.jsonToEnv(envData)
-                            writeFile file: '.env', text: envContent
-                            sh(script: "cat .env")
+                            // writeFile file: '.env', text: envContent
+                            // sh(script: "cat .env")
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
