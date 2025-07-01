@@ -92,11 +92,16 @@ pipeline {
                             echo "🚀 Process parse json"
                             def jsonSlurper = new groovy.json.JsonSlurper()
                             def envData = jsonSlurper.parseText(resultGetEnv)
+
+                            if (!envData.data) {
+                                error("Can't parse json from: $resultGetEnv")
+                            }
+
                             echo "✅ Process parse json success"
                             echo "$envData.data"
                             def envFile = new File(".env")
                             envFile.write("text to be added to the new file")
-                            // writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
+                            writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
                             sh(script: "cat .env")
                         }
 
