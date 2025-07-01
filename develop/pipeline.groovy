@@ -83,9 +83,14 @@ pipeline {
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                            
-                            def resultPing = sh(script: "${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token ${SECRET_TOKEN}", returnStatus: true)
-                            if(resultPing == 0){
+                            sh 'ls -la ./scripts'
+                            def resultGetEnv = sh(
+                                script: """
+                                    ${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
+                                """,
+                                returnStatus: true
+                            )
+                            if(resultGetEnv == 0){
                                 echo "✅ Before Build script success."
                             } else {
                                 echo "❌ Before Build script failed."
