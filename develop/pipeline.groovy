@@ -92,7 +92,7 @@ pipeline {
                             )
                             echo "✅ Get ENV success."
                             echo "🚀 Process parse json"
-                            sh(script: """${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} "${$resultGetEnv}" """)
+                            sh(script: """${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} "$resultGetEnv" """)
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
