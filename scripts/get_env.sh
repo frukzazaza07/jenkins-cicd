@@ -1,6 +1,6 @@
 
 #!/bin/bash
-set -e # ถ้าเกิด error ที่คำสั่งได้คำสั่งหนึ่งจะ return exit code 1
+set -x # ถ้าเกิด error ที่คำสั่งได้คำสั่งหนึ่งจะ return exit code 1
 
 envSecretUrl="http://localhost:8200/v1/cubbyhole"
 envSecretPath=""
@@ -30,6 +30,17 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+# ✅ Validate required parameters
+if [[ -z "$envSecretPath" ]]; then
+  echo "❌ --path is required"
+  exit 1
+fi
+
+if [[ -z "$envSecretHeaderAuth" ]]; then
+  echo "❌ --token is required"
+  exit 1
+fi
 
 responseVault = $(curl -s -H $envSecretHeaderAuth $envSecretMethod "$envSecretUrl/$envSecretPath" -o tmp_response.json )
 httpResponseCode=$(tail -c 3 <<< "$responseVault")
