@@ -22,7 +22,7 @@ echo "--- Exporting to .env format ---"
 # jq -r 'to_entries[] | "\(.key)=\(.value)"' จะแปลงเป็นรูปแบบ KEY=VALUE
 # แปลงเป็นรูปแบบ KEY=VALUE และส่งออกไปยังไฟล์ .env
 # เหมาะสำหรับข้อมูลที่ต้องการนำไปใช้เป็น environment variables
-echo "$json_data" | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
+# echo "$json_data" | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
 
-cat .env
+# cat .env
 
