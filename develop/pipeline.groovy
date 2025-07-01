@@ -87,11 +87,10 @@ pipeline {
                                 script: """
                                     ${env.WORKSPACE}/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                 """,
-                                returnStdout: true,
-                                returnStatus: true
+                                returnStdout: true
                             )
                             echo "$resultGetEnv"
-                            if(resultGetEnv.status == 0){
+                            if(resultGetEnv == 0){
                                 def fullJsonResponse = scriptResult.stdout.trim()
                                 echo "✅ Before Build script success."
                             } else {
