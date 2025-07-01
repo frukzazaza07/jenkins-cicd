@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e # ถ้าเกิด error ที่คำสั่งได้คำสั่งหนึ่งจะ return exit code 1
 
+# ตรวจสอบว่า jq ถูกติดตั้งหรือไม่
+if ! command -v jq &> /dev/null
+then
+    echo "❌ jq ไม่พบในระบบ กรุณาติดตั้ง jq เพื่อประมวลผล JSON" >&2
+    echo "   สำหรับ Debian/Ubuntu: sudo apt-get install jq" >&2
+    echo "   สำหรับ CentOS/RHEL: sudo yum install jq" >&2
+    echo "   สำหรับ macOS (Homebrew): brew install jq" >&2
+    exit 1
+fi
+
 # กำหนดค่าเริ่มต้นของตัวแปร
 envSecretUrl="http://host.docker.internal:8200/v1/cubbyhole"
 envSecretPath=""
@@ -63,27 +73,23 @@ if [[ "$httpResponseCode" != "200" ]]; then
   exit 1
 fi
 
-# ตรวจสอบว่า jq ถูกติดตั้งหรือไม่
-if ! command -v jq &> /dev/null
-then
-    echo "❌ jq ไม่พบในระบบ กรุณาติดตั้ง jq เพื่อประมวลผล JSON" >&2
-    echo "   สำหรับ Debian/Ubuntu: sudo apt-get install jq" >&2
-    echo "   สำหรับ CentOS/RHEL: sudo yum install jq" >&2
-    echo "   สำหรับ macOS (Homebrew): brew install jq" >&2
+if ! echo "$responseBody" | jq -e . > /dev/null 2>&1; then
+    echo "❌ JSON data ที่ได้รับมาไม่ถูกต้องหรือมีรูปแบบผิดพลาด" >&2
     exit 1
 fi
 
-# ตัวอย่าง JSON input
-# สมมติว่านี่คือ JSON ที่คุณได้รับจาก API หรือไฟล์
 
-echo "--- Exporting to .env format ---"
 
-# วิธีที่ 1: วนลูปผ่าน key-value pairs โดยตรง
-# .[] | @json จะแปลงแต่ละ element เป็น JSON string
-# jq -r 'to_entries[] | "\(.key)=\(.value)"' จะแปลงเป็นรูปแบบ KEY=VALUE
-# แปลงเป็นรูปแบบ KEY=VALUE และส่งออกไปยังไฟล์ .env
-# เหมาะสำหรับข้อมูลที่ต้องการนำไปใช้เป็น environment variables
-echo "$responseBody" | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
+
+if ! echo "$responseBody" | jq -e '.data | type == "object"' > /dev/null 2>&1; then
+    echo "⚠️ JSON data ไม่มี 'data' field ที่เป็น object หรือโครงสร้างไม่ตรงกับที่คาดหวัง (Vault secret)." >&2
+    echo "   จะพยายามแปลง JSON ทั้งหมดโดยใช้ filter สำหรับ nested data." >&2
+    # แปลง JSON ทั้งหมดเป็น .env format โดยตรง พร้อมจัดการ nested data
+    echo "$responseBody" | jq -r 'paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
+else
+    # แปลงเฉพาะ .data field เป็น .env format พร้อมจัดการ nested data
+    echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
+fi
 
 cat .env
 
