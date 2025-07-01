@@ -57,12 +57,9 @@ httpResponseCode=$(curl -s -w "%{http_code}" -H "X-Vault-Token: $envSecretAuth" 
 # อ่าน response body จากไฟล์ชั่วคราว
 responseBody=$(cat tmp_response.json)
 # ตรวจสอบ HTTP response code
-if [[ "$httpResponseCode" == "200" ]]; then
+if [[ "$httpResponseCode" != "200" ]]; then
   echo "$responseBody"
-else
   echo "❌ Failed with status code: $httpResponseCode"
-  responseBody=$(cat tmp_response.json)
-  echo "$responseBody"
   exit 1
 fi
 
