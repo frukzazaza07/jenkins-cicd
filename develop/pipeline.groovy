@@ -20,6 +20,7 @@ pipeline {
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH}", returnStatus: true)
+                    sh(script: "apt-get update && apt-get install -y jq", returnStatus: true)
                 }
             }
         }
