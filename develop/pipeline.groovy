@@ -16,8 +16,8 @@ pipeline {
             steps {
                 script{
                     echo "🚀 Starting add chmod script"
-                    def resultChmod = sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
-                    def resultChmod = sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
+                    sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
+                    sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
                 }
             }
         }
