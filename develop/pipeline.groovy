@@ -99,7 +99,9 @@ pipeline {
 
                             echo "✅ Process parse json success"
                             echo "$envData.data.APP_NAME"
-                            writeFile(file: 'texsttt.txt', text: 'Working with files the Groovy way is easy.')
+                            def helper = load 'helpers/helper.groovy'
+                            def envContent = helper.jsonToEnv(envData)
+                            writeFile file: '.env', text: envContent
                             sh(script: "cat .env")
                         }
 
