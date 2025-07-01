@@ -24,7 +24,7 @@ pipeline {
         stage('Test Ping Connection') {
             steps {
                 script{
-
+                    sh 'pwd'
                     echo "🚀 Starting ping ${env.PING_SCRIPT_PATH} ${env.DEST_IP}"
                     def resultPing = sh(script: "${env.PING_SCRIPT_PATH} ${env.DEST_IP}", returnStatus: true)
                     if(resultPing == 0){
