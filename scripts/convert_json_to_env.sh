@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail # ออกเมื่อเจอ error, ใช้ตัวแปรที่ไม่ได้ประกาศ, และ pipe failures
+set -e
 
 # ตรวจสอบว่า jq ถูกติดตั้งหรือไม่
 if ! command -v jq &> /dev/null
