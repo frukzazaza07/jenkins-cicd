@@ -61,12 +61,13 @@ pipeline {
                 script {
                     try{
                         echo "🚀 Starting Git pull code from ${env.GIT_APP_URL}"
-                        sh 'mkdir app && cd app && pwd'
-                        git(
-                            url: env.GIT_APP_URL,
-                            branch: env.GIT_APP_BRANCH,
-                            credentialsId: 'insureok-bitbucket'
-                        )
+                        dir('application') {
+                            git(
+                                url: env.GIT_APP_URL,
+                                branch: env.GIT_APP_BRANCH,
+                                credentialsId: 'insureok-bitbucket'
+                            )
+                        }
                         echo "✅ Pull code from ${env.GIT_APP_URL} success"
                     } catch (Exception e) {
                         echo "❌ Pull code failed: ${e.getMessage()}"
@@ -82,8 +83,6 @@ pipeline {
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                            sh 'pwd'
-                            sh 'ls -la'
                             def resultGetEnv = sh(
                                 script: """
                                     ../${env.PING_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
