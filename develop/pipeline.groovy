@@ -18,6 +18,8 @@ pipeline {
                     echo "🚀 Starting add chmod script"
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
+                    sh(script: "pwd", returnStatus: true)
+                    sh(script: "ls -la", returnStatus: true)
                 }
             }
         }
@@ -66,8 +68,6 @@ pipeline {
                             branch: env.GIT_APP_BRANCH,
                             credentialsId: 'insureok-bitbucket'
                         )
-                        sh(script: "pwd")
-                        sh(script: "ls -la")
                         echo "✅ Pull code from ${env.GIT_APP_URL} success"
                     } catch (Exception e) {
                         echo "❌ Pull code failed: ${e.getMessage()}"
@@ -83,8 +83,6 @@ pipeline {
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                            sh(script: "pwd", returnStatus: true)
-                            sh(script: "ls -la", returnStatus: true)
                             def resultGetEnv = sh(
                                 script: """
                                     ${env.PING_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
