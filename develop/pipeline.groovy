@@ -89,7 +89,8 @@ pipeline {
                                 """,
                                 returnStdout: true
                             )
-                            echo "xxxxx ${$resultGetEnvtrim()}"
+                            echo "✅ Get ENV success."
+                            echo "xxxxx ${$resultGetEnv.trim()}"
 
                         }
 
