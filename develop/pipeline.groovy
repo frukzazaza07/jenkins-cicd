@@ -81,7 +81,7 @@ pipeline {
                 script {
                     try{
                         echo "Starting get ENV from: ${env.REPO_NAME}"
-                        
+                        def envData = null
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
                             def resultGetEnv = sh(
                                 script: """
@@ -92,10 +92,9 @@ pipeline {
                             echo "✅ Get ENV success."
                             echo "✅ Process parse json"
                             def jsonSlurper = new groovy.json.JsonSlurper()
-                            def envData = jsonSlurper.parseText(resultGetEnv)
-                            echo "$envData.data"
-
+                            envData = jsonSlurper.parseText(resultGetEnv)
                         }
+                        echo "$envData.data"
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
                     } catch (Exception e) {
