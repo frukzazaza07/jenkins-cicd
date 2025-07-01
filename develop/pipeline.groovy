@@ -81,7 +81,7 @@ pipeline {
                 script {
                     try{
                         echo "Starting get ENV from: ${env.REPO_NAME}"
-                        def envData = null
+                        def envData
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
                             def resultGetEnv = sh(
                                 script: """
