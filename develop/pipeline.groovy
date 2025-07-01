@@ -99,7 +99,7 @@ pipeline {
 
                             echo "✅ Process parse json success"
                             echo "$envData.data"
-                            writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
+                            writeFile(file: 'texsttt.txt', text: 'Working with files the Groovy way is easy.')
                             sh(script: "cat .env")
                         }
 
