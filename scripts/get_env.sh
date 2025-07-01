@@ -81,17 +81,17 @@ fi
 
 
 
-if ! echo "$responseBody" | jq -e '.data | type == "object"' > /dev/null 2>&1; then
-    echo "⚠️ JSON data ไม่มี 'data' field ที่เป็น object หรือโครงสร้างไม่ตรงกับที่คาดหวัง (Vault secret)." >&2
-    echo "   จะพยายามแปลง JSON ทั้งหมดโดยใช้ filter สำหรับ nested data." >&2
-    # แปลง JSON ทั้งหมดเป็น .env format โดยตรง พร้อมจัดการ nested data
-    echo "$responseBody" | jq -r 'paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
-else
-    # แปลงเฉพาะ .data field เป็น .env format พร้อมจัดการ nested data
-    echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
-fi
+# if ! echo "$responseBody" | jq -e '.data | type == "object"' > /dev/null 2>&1; then
+#     echo "⚠️ JSON data ไม่มี 'data' field ที่เป็น object หรือโครงสร้างไม่ตรงกับที่คาดหวัง (Vault secret)." >&2
+#     echo "   จะพยายามแปลง JSON ทั้งหมดโดยใช้ filter สำหรับ nested data." >&2
+#     # แปลง JSON ทั้งหมดเป็น .env format โดยตรง พร้อมจัดการ nested data
+#     echo "$responseBody" | jq -r 'paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
+# else
+#     # แปลงเฉพาะ .data field เป็น .env format พร้อมจัดการ nested data
+#     echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
+# fi
 
-cat .env
+# cat .env
 
 # ลบไฟล์ชั่วคราวเพื่อทำความสะอาด
 rm tmp_response.json
