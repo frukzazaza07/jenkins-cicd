@@ -90,7 +90,10 @@ pipeline {
                                 returnStdout: true
                             )
                             echo "✅ Get ENV success."
-                            echo "xxxxx $resultGetEnv"
+                            echo "✅ Process parse json"
+                            def jsonSlurper = new groovy.json.JsonSlurper()
+                            def envData = jsonSlurper.parseText(resultGetEnv)
+                            echo "xxxxx $envData"
 
                         }
 
