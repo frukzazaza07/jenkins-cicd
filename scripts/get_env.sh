@@ -46,10 +46,6 @@ if [[ -z "$envSecretAuth" ]]; then
   exit 1
 fi
 
-# แสดงค่าตัวแปรเพื่อการ debug (ตามที่คุณเพิ่มเข้ามา)
-echo "Debug: envSecretAuth = $envSecretAuth"
-echo "Debug: Target URL = $envSecretUrl/$envSecretPath"
-
 # ทำการเรียกใช้ curl เพื่อดึงข้อมูลจาก Vault
 # -s: Silent mode (ไม่แสดง progress meter หรือ error message)
 # -w "%{http_code}": พิมพ์ HTTP status code ไปยัง stdout หลังจากการโอนย้ายข้อมูล
