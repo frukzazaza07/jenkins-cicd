@@ -2,7 +2,7 @@
 #!/bin/bash
 set -x # ถ้าเกิด error ที่คำสั่งได้คำสั่งหนึ่งจะ return exit code 1
 
-envSecretUrl="http://localhost:8200/v1/cubbyhole"
+envSecretUrl="http://host.docker.internal:8200/v1/cubbyhole"
 envSecretPath=""
 envSecretAuth=""
 
