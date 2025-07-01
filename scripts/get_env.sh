@@ -90,8 +90,8 @@ fi
 #     # แปลงเฉพาะ .data field เป็น .env format พร้อมจัดการ nested data
 #     echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
 # fi
-
-# cat .env
+echo "$responseBody" | jq -r '.data | paths(scalars) as $p | "\($p | join("_") | ascii_upcase)=\(.[$p]|tostring)"' > .env
+cat .env
 
 # ลบไฟล์ชั่วคราวเพื่อทำความสะอาด
 rm tmp_response.json
