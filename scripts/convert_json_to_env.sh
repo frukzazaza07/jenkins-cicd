@@ -24,5 +24,5 @@ echo "--- Exporting to .env format ---"
 # เหมาะสำหรับข้อมูลที่ต้องการนำไปใช้เป็น environment variables
 # echo "$json_data" | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
 
-cat .env
+# cat .env
 
