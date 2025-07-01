@@ -63,8 +63,18 @@ responseBody=$(cat tmp_response.json)
 
 # ตรวจสอบ HTTP response code
 if [[ "$httpResponseCode" == "200" ]]; then
-  echo "✅ Success!"
-  echo "$responseBody"
+  echo "✅ Success with status code: $httpResponseCode"
+  echo "--- Processed JSON with jq ---"
+  echo "Extracting 'data' field:"
+  jq_data_output=$(echo "$responseBody" | jq '.data')
+  if [ -n "$jq_data_output" ]; then
+    echo "$jq_data_output" | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
+    echo "✅ .env file created with extracted data."
+    echo "Content of .env:"
+    cat .env
+  else
+    echo "Could not extract 'data' field or it's empty/null."
+  fi
 else
   echo "❌ Failed with status code: $httpResponseCode"
   echo "$responseBody"
