@@ -61,7 +61,7 @@ pipeline {
                 script {
                     try{
                         echo "🚀 Starting Git pull code from ${env.GIT_APP_URL}"
-                        dir('application') {
+                        dir('application') { // ไม่งั้น git จะ clean folder
                             git(
                                 url: env.GIT_APP_URL,
                                 branch: env.GIT_APP_BRANCH,
@@ -85,7 +85,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
                             def resultGetEnv = sh(
                                 script: """
-                                    ../${env.PING_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
+                                    ${env.PING_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                 """,
                                 returnStatus: true
                             )
