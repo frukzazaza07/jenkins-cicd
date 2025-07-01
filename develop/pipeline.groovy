@@ -20,7 +20,6 @@ pipeline {
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH}", returnStatus: true)
-                    sh(script: "apt-get update && apt-get install -y jq", returnStatus: true)
                 }
             }
         }
@@ -93,14 +92,7 @@ pipeline {
                             )
                             echo "✅ Get ENV success."
                             echo "🚀 Process parse json"
-                            def jsonSlurper = new groovy.json.JsonSlurper()
-                            def envData = jsonSlurper.parseText(resultGetEnv)
-
-                            if (!envData.data) {
-                                error("Can't parse json from: $resultGetEnv")
-                            }
-
-                            echo "✅ Process parse json success"
+                            echo "DEBUG: fullJsonResponse content: $resultGetEnv"
                             sh(script: "${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} $resultGetEnv")
                         }
 
