@@ -78,12 +78,12 @@ if ! echo "$responseBody" | jq -e . > /dev/null 2>&1; then
     exit 1
 fi
 
-if ! echo "$json_data" | jq -e '.data | type == "object"' > /dev/null 2>&1; then
+if ! echo "$responseBody" | jq -e '.data | type == "object"' > /dev/null 2>&1; then
     echo "⚠️ JSON data ไม่มี 'data' field ที่เป็น object หรือโครงสร้างไม่ตรงกับที่คาดหวัง (Vault secret)." >&2
     echo "   จะพยายามแปลง JSON ทั้งหมดโดยใช้ filter สำหรับ nested data." >&2
     # แปลง JSON ทั้งหมดเป็น .env format โดยตรง พร้อมจัดการ nested data
     # Filter นี้จะจัดการ arrays โดยใช้ index ในชื่อตัวแปร (e.g., MYARRAY_0_KEY)
-    echo "$json_data" | jq -r '
+    echo "$responseBody" | jq -r '
         paths(scalars) as $p |
         # สร้าง key name โดยการ join path elements ด้วย "_" และแปลงเป็นตัวพิมพ์ใหญ่
         # แทนที่ตัวเลขใน path (สำหรับ array indices) ด้วย "INDEX" หรือคุณอาจจะปล่อยไว้ก็ได้
@@ -95,7 +95,8 @@ if ! echo "$json_data" | jq -e '.data | type == "object"' > /dev/null 2>&1; then
     ' > .env
 else
     # แปลงเฉพาะ .data field เป็น .env format พร้อมจัดการ nested data
-    echo "$json_data" | jq -r '.data |
+    echo "here"
+    echo "$responseBody" | jq -r '.data |
         paths(scalars) as $p |
         # สร้าง key name โดยการ join path elements ด้วย "_" และแปลงเป็นตัวพิมพ์ใหญ่
         "\(($p | map(tostring) | join("_") | ascii_upcase))" +
