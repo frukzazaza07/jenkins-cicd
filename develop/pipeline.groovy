@@ -85,16 +85,17 @@ pipeline {
                     try{
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         dir('application'){
-                            def resultGetEnv
                             withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                                resultGetEnv = sh(
+                                def resultGetEnv = sh(
                                     script: """
                                         ${env.WORKSPACE}/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                     """,
-                                    returnStdout: true
+                                    returnStatus: true
                                 )
                                     echo "✅ Get ENV success."
+                                    echo "$resultGetEnv"
                             }
+                            
                             // def jsonSlurper = new groovy.json.JsonSlurper()
                             // def envData = jsonSlurper.parseText(resultGetEnv)
                             // def jsonStringForEnv = JsonOutput.toJson(envData.data)
