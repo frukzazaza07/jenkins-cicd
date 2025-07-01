@@ -93,7 +93,7 @@ pipeline {
                             echo "✅ Process parse json"
                             def jsonSlurper = new groovy.json.JsonSlurper()
                             def envData = jsonSlurper.parseText(resultGetEnv)
-                            echo "xxxxx $envData"
+                            echo "$envData.data"
 
                         }
 
