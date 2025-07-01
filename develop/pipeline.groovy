@@ -83,10 +83,10 @@ pipeline {
                         echo "Starting get ENV from: ${env.REPO_NAME}"
                         
                         withCredentials([string(credentialsId: 'ENV_SECRET_AUTH', variable: 'SECRET_TOKEN')]) {
-                            sh(script: "chmod +x ${env.WORKSPACE}/${env.ENV_SCRIPT_PATH} ", returnStatus: true)
+                            sh(script: "pwd", returnStatus: true)
                             def resultGetEnv = sh(
                                 script: """
-                                    ${env.WORKSPACE}/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
+                                    ${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                 """,
                                 returnStatus: true
                             )
