@@ -89,7 +89,7 @@ pipeline {
                                 """,
                                 returnStdout: true
                             )
-                            echo "$resultGetEnv"
+                            echo "$resultGetEnv.status"
                             if(resultGetEnv == 0){
                                 def fullJsonResponse = scriptResult.stdout.trim()
                                 echo "✅ Before Build script success."
