@@ -8,7 +8,7 @@ pipeline {
         GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
         GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
-        ENV_SECRET_URL='http://localhost:8200/v1/cubbyhole'
+        ENV_SECRET_URL='http://host.docker.internal:8200/v1/cubbyhole'
         ENV_SECRET_PATH='insureok-dev'
     }
     stages {
