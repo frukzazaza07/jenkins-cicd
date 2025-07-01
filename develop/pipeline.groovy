@@ -94,8 +94,10 @@ pipeline {
                             def envData = jsonSlurper.parseText(resultGetEnv)
                             echo "✅ Process parse json success"
                             echo "$envData.data"
+                            def envFile = new File(".env")
+                            envFile.write("text to be added to the new file")
                             // writeFile(file: '.env', text: 'Working with files the Groovy way is easy.')
-                            // cat(file: '.env')
+                            sh(script: "cat .env")
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
