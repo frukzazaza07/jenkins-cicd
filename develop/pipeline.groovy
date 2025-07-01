@@ -95,7 +95,7 @@ pipeline {
                                 echo "✅ Before Build script success."
                             } else {
                                 echo "❌ Before Build script failed."
-                                error("❌ Before Build script failed. $resultGetEnv")
+                                error("❌ Before Build script failed. ${$resultGetEnv.stdout.trim()}")
                             }
 
                         }
