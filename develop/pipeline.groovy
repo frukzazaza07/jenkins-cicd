@@ -86,7 +86,7 @@ pipeline {
                             sh 'ls -la'
                             def resultGetEnv = sh(
                                 script: """
-                                    ${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
+                                    /var/jenkins_home/workspace/insureok/${env.ENV_SCRIPT_PATH} --url ${env.ENV_SECRET_URL} --path ${env.ENV_SECRET_PATH} --token "\$SECRET_TOKEN"
                                 """,
                                 returnStatus: true
                             )
