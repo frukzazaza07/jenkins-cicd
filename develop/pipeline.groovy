@@ -2,6 +2,9 @@ import groovy.json.JsonOutput
 pipeline {
     agent any
     environment {
+        PING_SCRIPT_PATH = 'scripts/ping_connection.sh'
+        ENV_SCRIPT_PATH = 'scripts/get_env.sh'
+        CONVERT_JSON_TO_ENV_SCRIPT_PATH = 'scripts/convert_json_to_env.sh'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
     stages {
