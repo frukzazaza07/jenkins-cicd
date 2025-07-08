@@ -2,16 +2,7 @@ import groovy.json.JsonOutput
 pipeline {
     agent any
     environment {
-        DEST_IP = '31.97.67.40'
-        PING_SCRIPT_PATH = 'scripts/ping_connection.sh'
-        ENV_SCRIPT_PATH = 'scripts/get_env.sh'
-        CONVERT_JSON_TO_ENV_SCRIPT_PATH = 'scripts/convert_json_to_env.sh'
-        REPO_NAME = 'insureok'
-        GIT_APP_URL = 'https://bitbucket.org/yern/insure-ok.git'
-        GIT_APP_BRANCH = 'develop'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
-        ENV_SECRET_URL='http://host.docker.internal:8200/v1/cubbyhole'
-        ENV_SECRET_PATH='insureok-dev'
     }
     stages {
         stage('Inti Scripts permission') {
