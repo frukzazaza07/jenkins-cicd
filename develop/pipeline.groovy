@@ -39,7 +39,7 @@ pipeline {
                         echo "🚀 Starting SSH Connecting to ${env.DEST_IP}"
                         def status = sshagent(['SSH_INSUREOK_SERVER']) {
                             sh(
-                                script: "ssh -o StrictHostKeyChecking=no ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} \"hostname -I\"",
+                                script: "ssh -o StrictHostKeyChecking=no -p ${env.SSH_PORT} ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP} \"hostname -I\"",
                                 returnStatus: true
                             )
                         }
