@@ -17,7 +17,7 @@ pipeline {
                     
                     echo "Init parameters"
                     properties([
-                        parameters(initDefaultParams.getDefaultParams())
+                        parameters(initDefaultParams())
                     ])
                     jenkinsGeneric.haltBuildWithSuccess('Refreshed parameters and quit')
                 }
