@@ -1,5 +1,8 @@
 @Library('default-parameters-shared-library') _
 
+def paramBlock = defaultParams()
+echo "[DEBUG] defaultParams() returned: ${paramBlock.getClass()}"
+
 pipeline {
     agent any
 
