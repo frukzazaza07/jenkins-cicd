@@ -8,7 +8,7 @@ pipeline {
     // }
 
     parameters {
-        evaluate(defaultParams())}
+        evaluate(defaultParams())
     }
 
     environment {
