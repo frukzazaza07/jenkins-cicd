@@ -1,5 +1,4 @@
-import groovy.json.JsonOutput
-def paramsList = load 'vars/pipilineParams.groovy'
+@Library('default-parameters-shared-library') _
 
 properties([
     parameters(paramsList)
@@ -9,14 +8,18 @@ pipeline {
     agent any
 
     parameters {
-        pipilineParams()  // ✅ static method in shared lib
+        script {
+            properties([parameters(pipelineParams())])
+        }
     }
+
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
         ENV_SCRIPT_PATH = 'resources/scripts/get_env.sh'
         CONVERT_JSON_TO_ENV_SCRIPT_PATH = 'resources/scripts/convert_json_to_env.sh'
         SSH_CREDENTIAL = credentials('SSH_INSUREOK_SERVER')
     }
+
     stages {
         stage('Inti Scripts permission') {
             steps {
@@ -28,6 +31,7 @@ pipeline {
                 }
             }
         }
+
         stage('Test Ping Connection') {
             steps {
                 script{
@@ -43,6 +47,7 @@ pipeline {
                 }
             }
         }
+
         stage('Test SSH Connection') {
             steps {
                 script {
@@ -63,6 +68,7 @@ pipeline {
                 }
             }
         }
+
         stage('Pull code app') {
             steps {
                 script {
@@ -83,6 +89,7 @@ pipeline {
                 }
             }
         }
+
         stage('Before Build get ENV') {
             steps {
                 script {
@@ -116,6 +123,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Build and Push app from docker image to registry') {
             steps {
                 script {
