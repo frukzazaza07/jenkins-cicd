@@ -19,6 +19,7 @@ pipeline {
                     properties([
                         parameters(initDefaultParams())
                     ])
+                    echo "zzzzzz"
                     jenkinsGeneric.haltBuildWithSuccess('Refreshed parameters and quit')
                 }
             }
