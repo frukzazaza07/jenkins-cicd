@@ -1,14 +1,14 @@
 @Library('default-parameters-shared-library') _
 
 def paramBlock = defaultParams()
-def test = {
-    ss: string(name: 'Branch', defaultValue: 'develop', description: 'Enter your branch (required)')
+def testrr = {
+    string(name: 'Branch', defaultValue: 'develop', description: 'Enter your branch (required)')
 }
 pipeline {
     agent any
 
     parameters {
-        test.ss
+        testrr
     }
 
     environment {
