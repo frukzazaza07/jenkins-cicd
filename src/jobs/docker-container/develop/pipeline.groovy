@@ -7,11 +7,6 @@ def testrr = {
 pipeline {
     agent any
 
-    parameters {
-        def parameterLoader = load 'config/params.groovy'
-        parameterLoader()
-    }
-
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
         ENV_SCRIPT_PATH = 'resources/scripts/get_env.sh'
