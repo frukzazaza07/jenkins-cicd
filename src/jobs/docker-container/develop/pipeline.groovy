@@ -3,7 +3,9 @@
 pipeline {
     agent any
 
-    parameters pipelineParams.call()
+    parameters {
+        pipelineParams.call()
+    }
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
