@@ -1,5 +1,5 @@
 import groovy.json.JsonOutput
-def paramsList = load 'vars/parameters.groovy'
+def paramsList = load 'vars/pipilineParams.groovy'
 
 properties([
     parameters(paramsList)
