@@ -1,15 +1,10 @@
 @Library('default-parameters-shared-library') _
 
 def paramBlock = defaultParams()
-defaultParams.call()
 pipeline {
     agent any
 
-    parameters {
-        defaultParams.call()
-    }
-
-    // parameters paramBlock
+    parameters paramBlock
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
