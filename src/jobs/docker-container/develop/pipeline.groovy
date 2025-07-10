@@ -7,7 +7,10 @@ properties([
 pipeline {
     agent any
 
-    parameters pipelineParams()
+    parameters {
+        // 👇 เรียกฟังก์ชันแล้วใช้ Closure ที่ return มา
+        pipelineParams()()
+    }
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
