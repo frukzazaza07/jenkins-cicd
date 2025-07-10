@@ -5,9 +5,9 @@ defaultParams.call()
 pipeline {
     agent any
 
-    // parameters {
-    //     createPipelineParameters(pipilineParams())
-    // }
+    parameters {
+        defaultParams.call()
+    }
 
     // parameters paramBlock
 
@@ -22,7 +22,7 @@ pipeline {
         stage('Inti Scripts permission') {
             steps {
                 script{
-                    defaultParams.call()
+                    
                     echo "🚀 Starting add chmod script"
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
