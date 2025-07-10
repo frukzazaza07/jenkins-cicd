@@ -14,18 +14,19 @@ pipeline {
         stage('Inti Scripts permission') {
             steps {
                 script{
+                    
+                    echo "Init parameters"
                     properties([
-                        parameters([
-                           booleanParam(
-                                  name: 'REFRESH_PARAMETERS',
-                                  defaultValue: false,
-                                  description: 'Read Jenkinsfile and exit.'
-                            ),
-                            string(name: 'SERVER_NAME', required: true),
-                            string(name: 'OS_IMAGE', defaultValue: 'ubuntu-24'),
-
-                        ])
+                        parameters(initDefaultParams.getDefaultParams())
                     ])
+                    jenkinsGeneric.haltBuildWithSuccess('Refreshed parameters and quit')
+                }
+            }
+        }
+
+        stage('Inti Scripts permission') {
+            steps {
+                script{
                     echo "🚀 Starting add chmod script"
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
