@@ -3,8 +3,16 @@
 pipeline {
     agent any
 
+    // parameters {
+    //     createPipelineParameters(pipilineParams())
+    // }
+
     parameters {
-        createPipelineParameters(pipilineParams())
+        script {
+            defaultParams().each { param ->
+                delegate."${param.getClass().simpleName}"(param)
+            }
+        }
     }
 
     environment {
