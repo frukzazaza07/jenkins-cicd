@@ -4,7 +4,9 @@ def paramBlock = defaultParams()
 pipeline {
     agent any
 
-    parameters paramBlock
+    parameters {
+        paramBlock
+    }
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
