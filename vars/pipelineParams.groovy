@@ -1,14 +1,4 @@
-// def call() {
-//     // generate params build with params
-//     // config on jenkins website manage jenkins -> config system -> find Global Trusted Pipeline Libraries
-//     return {
-//         string(name: 'Branch', defaultValue: 'develop', description: 'Enter your branch (required)'),
-//         choice(name: 'ENV', choices: ['develop', 'staging'], description: 'Choose environment'),
-//         string(name: 'App Version', defaultValue: '', description: 'Enter your app version (required)')
-//     }
-// }
-
-def call(List parameterDefinitions) {
+def call(List parameterDefinitions): [booleanParam, choice, credentials, file, text, password, run, string] {
     parameterDefinitions.each { paramDef ->
         switch (paramDef.$class) {
             case 'StringParameterDefinition':
