@@ -5,4 +5,3 @@ def getDefaultParams() {
         string(name: 'AppVersion', defaultValue: 'develop', description: 'Enter your app version (required)')
     ]
 }
-return this
