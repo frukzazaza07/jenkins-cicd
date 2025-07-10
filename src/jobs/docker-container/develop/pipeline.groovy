@@ -8,7 +8,7 @@ pipeline {
     agent any
 
     parameters {
-        def parameterLoader = load 'config/my_params.groovy'
+        def parameterLoader = load 'config/params.groovy'
         parameterLoader()
     }
 
