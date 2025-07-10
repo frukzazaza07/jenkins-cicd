@@ -1,14 +1,11 @@
 @Library('default-parameters-shared-library') _
 
-// def myParams = {
-//     string(name: 'FOO', defaultValue: 'bar', description: 'Enter something')
-// }
 pipeline {
     agent any
 
     parameters {
         // 👇 เรียกฟังก์ชันแล้วใช้ Closure ที่ return มา
-        pipelineParams()
+        pipelineParams()()
     }
 
     environment {
