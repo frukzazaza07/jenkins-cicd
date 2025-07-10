@@ -17,10 +17,11 @@ pipeline {
                     
                     echo "Init parameters"
                     properties([
-                        parameters(initDefaultParams())
+                        parameters(initDefaultParams.getDefaultParams())
                     ])
-                    echo "zzzzzz"
-                    jenkinsGeneric.haltBuildWithSuccess('Refreshed parameters and quit')
+                    echo "Init parameters success"
+                    currentBuild.result = 'SUCCESS'
+                    return
                 }
             }
         }
