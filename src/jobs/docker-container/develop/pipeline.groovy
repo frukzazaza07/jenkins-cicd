@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        stage('Inti Scripts permission') {
+        stage('Init parameters first time') {
             steps {
                 script{
                     
