@@ -1,9 +1,8 @@
 @Library('default-parameters-shared-library') _
 
-properties([
-    parameters(paramsList)
-])
-
+// def myParams = {
+//     string(name: 'FOO', defaultValue: 'bar', description: 'Enter something')
+// }
 pipeline {
     agent any
 
