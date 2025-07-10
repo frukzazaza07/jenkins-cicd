@@ -1,0 +1,1 @@
+this folder is global library config in manage jenkinns -> system search library -> add git this project
