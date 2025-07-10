@@ -7,11 +7,7 @@ properties([
 pipeline {
     agent any
 
-    parameters {
-        script {
-            properties([parameters(pipelineParams())])
-        }
-    }
+    parameters pipelineParams()
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
