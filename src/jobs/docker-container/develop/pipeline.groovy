@@ -1,5 +1,5 @@
 @Library('default-parameters-shared-library') _
-
+defaultParams()
 pipeline {
     agent any
 
@@ -8,7 +8,6 @@ pipeline {
     // }
 
     parameters {
-        evaluate(defaultParams())
     }
 
     environment {
