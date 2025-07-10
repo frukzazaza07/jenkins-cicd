@@ -8,7 +8,8 @@ pipeline {
     agent any
 
     parameters {
-        testrr
+        def parameterLoader = load 'config/my_params.groovy'
+        parameterLoader()
     }
 
     environment {
