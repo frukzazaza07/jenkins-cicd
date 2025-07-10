@@ -5,7 +5,7 @@ pipeline {
 
     parameters {
         // 👇 เรียกฟังก์ชันแล้วใช้ Closure ที่ return มา
-        pipelineParams()()
+        pipelineParams()
     }
 
     environment {
