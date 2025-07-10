@@ -1,9 +1,14 @@
 @Library('default-parameters-shared-library') _
 
+// def myParams = {
+//     string(name: 'FOO', defaultValue: 'bar', description: 'Enter something')
+// }
 pipeline {
     agent any
 
-    parameters pipelineParams()
+    parameters {
+        myParams()
+    }
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
