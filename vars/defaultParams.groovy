@@ -1,5 +1,7 @@
 // vars/commonParams.groovy
 def call() {
+    println "[DEBUG] pipelineParams.groovy is loaded"
+
     return '''
         string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Deployment environment (dev, staging, prod)')
         choice(name: 'BRANCH', choices: ['main', 'develop', 'feature/*'], description: 'Git branch to build')
