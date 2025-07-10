@@ -4,7 +4,9 @@ pipeline {
     agent any
 
     parameters {
-        pipelineParams.call()
+        script{
+            pipelineParams.call()
+        }
     }
 
     environment {
