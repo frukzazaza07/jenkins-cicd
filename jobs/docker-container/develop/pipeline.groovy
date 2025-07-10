@@ -1,4 +1,10 @@
 import groovy.json.JsonOutput
+def paramsList = load 'vars/parameters.groovy'
+
+properties([
+    parameters(paramsList)
+])
+
 pipeline {
     agent any
     environment {
