@@ -1,7 +1,7 @@
 @Library('default-parameters-shared-library') _
 
 def paramBlock = defaultParams()
-
+defaultParams.call()
 pipeline {
     agent any
 
@@ -9,7 +9,7 @@ pipeline {
     //     createPipelineParameters(pipilineParams())
     // }
 
-    parameters paramBlock
+    // parameters paramBlock
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
@@ -22,6 +22,7 @@ pipeline {
         stage('Inti Scripts permission') {
             steps {
                 script{
+                    defaultParams.call()
                     echo "🚀 Starting add chmod script"
                     sh(script: "chmod +x ${env.PING_SCRIPT_PATH}", returnStatus: true)
                     sh(script: "chmod +x ${env.ENV_SCRIPT_PATH}", returnStatus: true)
