@@ -1,13 +1,10 @@
 @Library('default-parameters-shared-library') _
 
-def myParams = {
-    string(name: 'FOO', defaultValue: 'bar', description: 'Enter something')
-}
 pipeline {
     agent any
 
     parameters {
-        myParams()
+        pipelineParams()
     }
 
     environment {
