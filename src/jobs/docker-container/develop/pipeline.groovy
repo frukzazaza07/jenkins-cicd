@@ -1,7 +1,6 @@
 @Library('default-parameters-shared-library') _
 
 def paramBlock = defaultParams()
-echo "[DEBUG] defaultParams() returned: ${paramBlock.getClass()}"
 
 pipeline {
     agent any
@@ -10,9 +9,7 @@ pipeline {
     //     createPipelineParameters(pipilineParams())
     // }
 
-    parameters {
-        evaluate(defaultParams())
-    }
+    parameters paramBlock
 
     environment {
         PING_SCRIPT_PATH = 'resources/scripts/ping_connection.sh'
