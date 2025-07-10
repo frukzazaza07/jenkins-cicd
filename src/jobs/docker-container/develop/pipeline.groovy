@@ -8,11 +8,7 @@ pipeline {
     // }
 
     parameters {
-        script {
-            defaultParams().each { param ->
-                delegate."${param.getClass().simpleName}"(param)
-            }
-        }
+        evaluate(defaultParams())}
     }
 
     environment {
