@@ -1,9 +1,5 @@
 @Library('default-parameters-shared-library') _
 
-def paramBlock = defaultParams()
-def testrr = {
-    string(name: 'Branch', defaultValue: 'develop', description: 'Enter your branch (required)')
-}
 pipeline {
     agent any
 
