@@ -11,6 +11,7 @@
 #### in Dockerfile
 # only linux server
 # run grep docker /etc/group เพื่อหาเลข GID เพื่อ add user jenkins ใน container ศามารถใช้ docker.sock แบบ gorup เดียวกับนอก container
+# change DOCKER_GID= ... to real GID from grep docker /etc/group
 ARG DOCKER_GID=988
 RUN RUN groupadd -g $DOCKER_GID docker || true && \
     usermod -aG docker jenkins
