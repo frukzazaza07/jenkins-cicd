@@ -12,8 +12,8 @@ docker run \
   --name jenkins-blueocean --restart=on-failure --detach \
   --network jenkins \
   --env DOCKER_HOST=tcp://host.docker.internal:2375 \
-  --volume jenkins-data:/var/jenkins_home \
-  --volume jenkins-docker-certs:/certs/client:ro \
+  --volume /home/docker/volume/jenkins/jenkins-data:/var/jenkins_home \
+  --volume /home/docker/volume/jenkins/jenkins-docker-certs:/certs/client:ro \
   --publish 8080:8080 --publish 50000:50000 $IMAGE_TAG_NAME
 
 echo Jenkins Docker-in-Docker started
