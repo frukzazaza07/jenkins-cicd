@@ -25,7 +25,7 @@ echo Jenkins Docker-in-Docker started
 @REM for 2375 not use cert if using docker-desktop config in setting>general>2375 --env DOCKER_HOST=tcp://host.docker.internal:2375 ^ 
 @REM ถ้าเป็น window สำคัญเพราะเป็นการบอกให้ docker ภายใน jenkins container มาใช้ host เดียวกับ local pc 
 @REM ถ้าเป็น linux ให้ volume docker.sock ภายใน jenkins container มาใช้ host เดียวกับ local pc 
-@REM for window using tcp for build docker in docker --env DOCKER_HOST=tcp://host.docker.internal:2376 ^
+@REM for window using tcp for build docker in docker --env DOCKER_HOST=tcp://host.docker.internal:2375 ^
 @REM for linux using socket for build docker in docker --env DOCKER_HOST=tcp://host.docker.internal:2376 ^
 @REM --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 ^
 

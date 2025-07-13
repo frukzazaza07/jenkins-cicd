@@ -22,7 +22,7 @@ echo Jenkins Docker-in-Docker started
 # for 2375 not use cert if using docker-desktop config in setting>general>2375 --env DOCKER_HOST=tcp://host.docker.internal:2375 ^ 
 # ถ้าเป็น window สำคัญเพราะเป็นการบอกให้ docker ภายใน jenkins container มาใช้ host เดียวกับ local pc 
 # ถ้าเป็น linux ให้ volume docker.sock ภายใน jenkins container มาใช้ host เดียวกับ local pc 
-# for window using tcp for build docker in docker --env DOCKER_HOST=tcp://host.docker.internal:2376 ^
+# for window using tcp for build docker in docker --env DOCKER_HOST=tcp://host.docker.internal:2375 ^
 # for linux using socket for build docker in docker --env DOCKER_HOST=tcp://host.docker.internal:2376 ^
 # --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 ^
 
