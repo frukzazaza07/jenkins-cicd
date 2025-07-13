@@ -11,13 +11,14 @@ docker build --no-cache -t $IMAGE_TAG_NAME . && \
 docker run \
   --name jenkins-blueocean --restart=on-failure --detach \
   --network jenkins \
-  --env DOCKER_HOST=tcp://host.docker.internal:2375 \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume /home/docker/volume/jenkins/jenkins-data:/var/jenkins_home \
   --volume /home/docker/volume/jenkins/jenkins-docker-certs:/certs/client:ro \
   --publish 8080:8080 --publish 50000:50000 $IMAGE_TAG_NAME
 
 echo Jenkins Docker-in-Docker started
 
+# --env DOCKER_HOST=tcp://host.docker.internal:2375 \
 # docker run options ถ้าใส่ env สองอันนี้ แล้วเราจะใช้ plugins docker เพื่อ build app มันจะถามหา TLS
 # for 2375 not use cert if using docker-desktop config in setting>general>2375 --env DOCKER_HOST=tcp://host.docker.internal:2375 ^ 
 # ถ้าเป็น window สำคัญเพราะเป็นการบอกให้ docker ภายใน jenkins container มาใช้ host เดียวกับ local pc 
