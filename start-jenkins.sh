@@ -2,8 +2,8 @@
 IMAGE_TAG_NAME=myjenkins-blueocean:2.504.2-1
 
 # Check if Docker network 'jenkins' exists, create if not
-docker network inspect jenkins > /dev/null 2>&1
-if [ $? -nq 0 ]; then
+if ! docker network inspect jenkins > /dev/null 2>&1; then
+    echo "Create network jenkins"
     docker network create jenkins
 fi
 
