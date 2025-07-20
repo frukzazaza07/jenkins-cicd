@@ -96,13 +96,6 @@ pipeline {
                                     echo "$resultGetEnv"
                             }
                             
-                            // def jsonSlurper = new groovy.json.JsonSlurper()
-                            // def envData = jsonSlurper.parseText(resultGetEnv)
-                            // def jsonStringForEnv = JsonOutput.toJson(envData.data)
-                            // def resultCreateEnv = sh(script: """${env.WORKSPACE}/${env.CONVERT_JSON_TO_ENV_SCRIPT_PATH} '$jsonStringForEnv' """, returnStatus: true)
-                            // if(resultCreateEnv == 0){
-                            //     echo "GGG"
-                            // }
                         }
 
                         echo "✅ Before Build get ENV from: ${env.REPO_NAME} success"
@@ -120,9 +113,9 @@ pipeline {
                         echo "Starting push app to: ${env.REPO_NAME}"
                         dir('application') { 
                             sh(script: "ls -la")
-                            docker.withRegistry('https://31.97.67.40:5000', 'DOCKER-LOGIN-REGISTRY') {
+                            docker.withRegistry("https://${env.DOCKER_REGISTRY_URL}", 'DOCKER-LOGIN-REGISTRY') {
                                 // docker.image(env.REPO_NAME).push('latest')
-                                docker.build("${env.REPO_NAME}:latest").push()
+                                docker.build("${env.REPO_NAME}:${params.AppVersion}", "--file .docker/php.dockerfile .").push()
                             }
                         }
                         echo "✅ Push app to: ${env.REPO_NAME} success"
