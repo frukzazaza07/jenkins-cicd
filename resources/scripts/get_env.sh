@@ -77,7 +77,7 @@ if ! echo "$responseBody" | jq -e . > /dev/null 2>&1; then
     echo "❌ JSON data ที่ได้รับมาไม่ถูกต้องหรือมีรูปแบบผิดพลาด" >&2
     exit 1
 fi
-
+echo "$responseBody"
 echo "$responseBody" | jq -r '.data | to_entries | .[] | .key + "=" + (.value | @sh)' > .env
 
 # ลบไฟล์ชั่วคราวเพื่อทำความสะอาด
