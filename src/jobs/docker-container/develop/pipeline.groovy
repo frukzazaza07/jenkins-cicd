@@ -67,7 +67,7 @@ pipeline {
                             git(
                                 url: env.GIT_APP_URL,
                                 branch: env.GIT_APP_BRANCH,
-                                credentialsId: 'insureok-bitbucket'
+                                credentialsId: 'INSUREOK_BITBUCKET'
                             )
                         }
                         echo "✅ Pull code from ${env.GIT_APP_URL} success"
