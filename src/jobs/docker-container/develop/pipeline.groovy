@@ -115,7 +115,7 @@ pipeline {
                             sh(script: "ls -la")
                             docker.withRegistry("${env.DOCKER_REGISTRY_URL}", 'DOCKER-LOGIN-REGISTRY') {
                                 // docker.image(env.REPO_NAME).push('latest')
-                                docker.build("${env.REPO_NAME}:${params.AppVersion}", "--file .docker/php.dockerfile .").push()
+                                docker.build("${env.REPO_NAME}:${params.AppVersion}", "--no-cache", "--file .docker/php.dockerfile .").push()
                             }
                         }
                         echo "✅ Push app to: ${env.REPO_NAME} success"
