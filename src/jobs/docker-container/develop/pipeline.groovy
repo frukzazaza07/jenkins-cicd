@@ -126,8 +126,32 @@ pipeline {
                 }
             }
         }
+
+        stage('Start new app version') {
+            steps {
+                script {
+                        echo "🚀 Starting SSH Connecting to ${env.DEST_IP}"
+                        def status = sshagent(['SSH_INSUREOK_SERVER']) {
+                            sh(
+                                script: """
+                                ssh -o StrictHostKeyChecking=no -p ${env.SSH_PORT} ${env.SSH_CREDENTIAL_USR}@${env.DEST_IP}
+                                \"docker volume rm insureok_app-build-public && cd /home/application/insureok && docker compose up -d\"
+                                """,
+                                returnStatus: true
+                            )
+                        }
+
+                        if (status == 0) {
+                            echo "✅ Start new app version success"
+                        } else {
+                            echo "❌ Start new app failed"
+                            error("❌ Start new app failed")
+                        }
+                }
+            }
+        }
     }
 }
-
+// 
 
 
